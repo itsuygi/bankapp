@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <h1>{{account.name}} <span class="badge bg-secondary">ID: {{account.id}}</span></h1>
+            <hr>
+            <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Balance</h5>
+                  <p class="card-text"> <h4> <b>{{account.balance}}</b> TL</h4></p>
+                </div>
+              </div>
+            <hr>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+        
+                {{form.as_div}}
+                <br>
+                {% if error %}
+                    <div class="alert alert-danger"> {{error}}</div>
+                {% endif %}
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <a class="btn btn-danger" href="{{account.get_delete_url}}" class="btn btn-primary">Delete</a>
+                </div>
+                
+            </form>
+            
+            <hr>
+            <div class="d-grid gap-2 d-md-flex">
+                <h3>Transactions</h3>
+                <a href="{{account.get_transaction_url}}" class="btn btn-primary">New transaction</a>
+            </div>
+            <br>
+            {% for transaction in transactions %}
+                {% include 'bank/partials/_transaction.html' %}
+            {% endfor %}
+        </div>
+    </div>
+ </div>
+  
+{% endblock %}
+
+{% block js_files %}
+    <script src="{% static 'blog/js/script.js' %}"></script>
+{% endblock %}

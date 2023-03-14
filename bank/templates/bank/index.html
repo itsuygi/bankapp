@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <h1>Home page</h1>
+            <hr>
+            {% if accounts|length > 0 %}
+                {% for account in accounts %}
+                    {% include 'bank/partials/_account.html' %}
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">No accounts</div>
+            {% endif %}
+        </div>
+    </div>
+ </div>
+  
+{% endblock %}
+
+{% block js_files %}
+    <script src="{% static 'blog/js/script.js' %}"></script>
+{% endblock %}

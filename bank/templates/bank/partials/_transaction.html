@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        {% if transaction.type == 'In' %}
+            <img src="{% static 'bank/img/giris.png' %}" class="img-fluid rounded-start" alt="...">
+        {% else %} 
+            <img src="{% static 'bank/img/cikis.png' %}" class="img-fluid rounded-start" alt="...">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">
+            {% if transaction.type == 'In' %}
+                Para geldi.
+            {% else %} 
+                Para çıktı.
+            {% endif %}
+          </h5>
+          <p class="card-text">
+            {% if transaction.type == 'In' %}
+                {{transaction.from_account}} kişisinden hesabınıza {{transaction.amount}} para geldi.
+            {% else %} 
+                {{transaction.to_account}} kişisine hesabınızdan {{transaction.amount}} para gönderildi.
+            {% endif %}
+          </p>
+          <p class="card-text"><small class="text-muted">{{transaction.date}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
